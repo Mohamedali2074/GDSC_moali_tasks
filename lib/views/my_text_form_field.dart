@@ -1,32 +1,39 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:task2_register_page/constant.dart';
 
 class MyTextFormField extends StatelessWidget {
+  @override
   MyTextFormField({
     Key? key,
     required this.controller,
     required this.validator,
     required this.labelText,
     required this.prefixIcon,
+    this.suffixIcon,
+    required this.obscureText,
+    required this.keyboardType,
   }) : super(key: key);
   final TextEditingController controller;
   final FormFieldValidator validator;
   final String labelText;
   final IconData prefixIcon;
-  IconData? suffixIcon;
+  final TextInputType keyboardType;
+  final Widget? suffixIcon;
+  bool obscureText = false;
+
+ 
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: obscureText,
       controller: controller,
       validator: validator,
       style: const TextStyle(
         color: kPrimaryColor,
       ),
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -67,11 +74,12 @@ class MyTextFormField extends StatelessWidget {
           prefixIcon,
           color: kPrimaryColor,
         ),
-        suffixIcon: Icon(
-          suffixIcon,
-          color: kPrimaryColor,
-        ),
+        suffixIcon: suffixIcon,
       ),
     );
   }
 }
+
+
+
+

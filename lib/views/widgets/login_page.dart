@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:task2_register_page/constant.dart';
 import 'package:task2_register_page/custom_paint.dart';
 import 'package:task2_register_page/main_button.dart';
@@ -17,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _visiblePassword = false;
 
   @override
   void dispose() {
@@ -73,6 +73,8 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (val) =>
                             val!.isEmpty ? 'please enter your email' : null,
                         labelText: 'Email',
+                        keyboardType: TextInputType.emailAddress,
+                        obscureText: false,
                         prefixIcon: Icons.email,
                       ),
                       const SizedBox(
@@ -83,7 +85,22 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (val) =>
                             val!.isEmpty ? 'please enter your password' : null,
                         labelText: 'Password',
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: !_visiblePassword,
                         prefixIcon: Icons.lock,
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _visiblePassword = !_visiblePassword;
+                            });
+                          },
+                          child: Icon(
+                            _visiblePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: kPrimaryColor,
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 10,
