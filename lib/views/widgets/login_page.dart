@@ -103,10 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
-                      ),
-                      const SizedBox(
-                        height: 40,
+                        height: 50,
                       ),
                       MainButton(
                         backgroundColor: kPrimaryColor,

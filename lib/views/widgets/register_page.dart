@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:task2_register_page/constant.dart';
 import 'package:task2_register_page/custom_paint.dart';
 import 'package:task2_register_page/main_button.dart';
+import 'package:task2_register_page/routes_manger.dart';
+import 'package:task2_register_page/views/my_text_form_field.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -12,9 +13,21 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final _nameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
+  final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+  bool _visiblePassword = true;
+  bool _visibleConfirmPassword = true;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,178 +65,127 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(15),
-                        ),
-                      ),
-                      child: TextFormField(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      MyTextFormField(
                         controller: _nameController,
                         validator: (val) =>
                             val!.isEmpty ? 'please enter your name' : null,
-                        style: const TextStyle(
-                          color: kPrimaryColor,
-                        ),
+                        labelText: 'Full Name',
                         keyboardType: TextInputType.emailAddress,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          // fillColor: Colors.grey.shade200,
-                          labelText: ' Full Name',
-                          labelStyle: TextStyle(color: kPrimaryColor),
-                          hintStyle: TextStyle(color: kPrimaryColor),
-                          prefixIcon: Icon(
-                            FontAwesomeIcons.user,
-                            color: kPrimaryColor,
-                          ),
-                        ),
+                        obscureText: false,
+                        prefixIcon: Icons.person,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
+                      const SizedBox(
+                        height: 10,
                       ),
-                      child: TextFormField(
-                        style: const TextStyle(
-                          color: kPrimaryColor,
-                        ),
+                      MyTextFormField(
+                        controller: _emailController,
+                        validator: (val) =>
+                            val!.isEmpty ? 'please enter your email' : null,
+                        labelText: 'Email',
                         keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          fillColor: Colors.grey.shade200,
-                          labelText: ' Email',
-                          labelStyle: const TextStyle(color: kPrimaryColor),
-                          hintStyle: const TextStyle(color: kPrimaryColor),
-                          prefixIcon: const Icon(
-                            FontAwesomeIcons.envelope,
-                            color: kPrimaryColor,
-                          ),
-                        ),
+                        obscureText: false,
+                        prefixIcon: Icons.email,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
+                      const SizedBox(
+                        height: 10,
                       ),
-                      child: TextFormField(
-                        style: const TextStyle(
-                          color: kPrimaryColor,
-                        ),
+                      MyTextFormField(
+                        controller: _passwordController,
+                        validator: (val) =>
+                            val!.isEmpty ? 'please enter your password' : null,
+                        labelText: 'Password',
                         keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          fillColor: Colors.grey.shade200,
-                          labelText: ' Password',
-                          labelStyle: const TextStyle(color: kPrimaryColor),
-                          hintStyle: const TextStyle(color: kPrimaryColor),
-                          prefixIcon: const Icon(
-                            Icons.lock_outlined,
-                            color: kPrimaryColor,
-                          ),
-                          suffixIcon: const Icon(
-                            Icons.remove_red_eye,
+                        obscureText: !_visiblePassword,
+                        prefixIcon: Icons.lock,
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _visiblePassword = !_visiblePassword;
+                            });
+                          },
+                          child: Icon(
+                            _visiblePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: kPrimaryColor,
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
+                      const SizedBox(
+                        height: 10,
                       ),
-                      child: TextFormField(
-                        style: const TextStyle(
-                          color: kPrimaryColor,
-                        ),
+                      MyTextFormField(
+                        controller: _confirmPasswordController,
+                        validator: (val) => val!.isEmpty
+                            ? 'please confirm your password'
+                            : null,
+                        labelText: 'Confirm Password',
                         keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          fillColor: Colors.grey.shade200,
-                          labelText: 'Confirm Password',
-                          labelStyle: const TextStyle(color: kPrimaryColor),
-                          hintStyle: const TextStyle(color: kPrimaryColor),
-                          prefixIcon: const Icon(
-                            Icons.lock_outlined,
-                            color: kPrimaryColor,
-                          ),
-                          suffixIcon: const Icon(
-                            Icons.remove_red_eye,
+                        obscureText: !_visibleConfirmPassword,
+                        prefixIcon: Icons.lock,
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _visibleConfirmPassword =
+                                  !_visibleConfirmPassword;
+                            });
+                          },
+                          child: Icon(
+                            _visibleConfirmPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: kPrimaryColor,
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
+                      const SizedBox(
+                        height: 10,
                       ),
-                      child: TextFormField(
-                        style: const TextStyle(
-                          color: kPrimaryColor,
-                        ),
+                      MyTextFormField(
+                        controller: _phoneNumberController,
+                        validator: (val) => val!.isEmpty
+                            ? 'please enter your phone number'
+                            : null,
+                        labelText: 'Phone Number',
                         keyboardType: TextInputType.number,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          fillColor: Colors.grey.shade200,
-                          labelText: 'Phone Number',
-                          labelStyle: const TextStyle(color: kPrimaryColor),
-                          hintStyle: const TextStyle(color: kPrimaryColor),
-                          prefixIcon: const Icon(
-                            Icons.phone_outlined,
-                            color: kPrimaryColor,
-                          ),
-                        ),
+                        obscureText: false,
+                        prefixIcon: Icons.phone,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    MainButton(
-                      backgroundColor: kPrimaryColor,
-                      textColor: Colors.white,
-                      text: 'Register',
-                      onPressed: () {},
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    MainButton(
-                      backgroundColor: Colors.white,
-                      textColor: kPrimaryColor,
-                      text: 'Login',
-                      onPressed: () {},
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      MainButton(
+                        backgroundColor: kPrimaryColor,
+                        textColor: Colors.white,
+                        text: 'Register',
+                        onPressed: () {
+                          setState(() {
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.of(context)
+                                  .pushNamed(Routes.loginPageRoute);
+                              _formKey.currentState!.reset();
+                            } else {
+                              debugPrint('there was an error');
+                            }
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      MainButton(
+                        backgroundColor: Colors.white,
+                        textColor: kPrimaryColor,
+                        text: 'Login',
+                        onPressed: () => Navigator.of(context)
+                            .pushNamed(Routes.loginPageRoute),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
