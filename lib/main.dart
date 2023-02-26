@@ -14,7 +14,7 @@ class CourseApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       onGenerateRoute: RoutesGenerator.getRoute,
-      initialRoute: Routes.loginPageRoute,
+      initialRoute: Routes.registerPageRoute,
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:task2_register_page/constant.dart';
 import 'package:task2_register_page/custom_paint.dart';
+import 'package:task2_register_page/main_button.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -119,44 +121,18 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(
                       height: 40,
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          backgroundColor: kPrimaryColor,
-                        ),
-                        child: const Text(
-                          'Login',
-                        ),
-                      ),
+                    const MainButton(
+                      backgroundColor: kPrimaryColor,
+                      textColor: Colors.white,
+                      text: 'Login',
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            backgroundColor: Colors.white,
-                            side: const BorderSide(
-                              width: 1.0,
-                              color: kPrimaryColor,
-                            )),
-                        child: const Text(
-                          'Register',
-                          style: TextStyle(color: kPrimaryColor),
-                        ),
-                      ),
+                    const MainButton(
+                      backgroundColor: Colors.white,
+                      textColor: kPrimaryColor,
+                      text: 'Register',
                     ),
                   ],
                 ),
