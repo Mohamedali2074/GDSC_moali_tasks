@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:task2_register_page/views/widgets/login_page.dart';
+import 'package:task2_register_page/views/widgets/map_page.dart';
 import 'package:task2_register_page/views/widgets/register_page.dart';
 
 class Routes {
   static const String loginPageRoute = '/';
   static const String registerPageRoute = '/register';
+  static const String mapPageRoute = '/map';
 }
 
 class RoutesGenerator {
@@ -16,6 +18,12 @@ class RoutesGenerator {
     switch (settings.name) {
       case Routes.registerPageRoute:
         return MaterialPageRoute(builder: (_) => const RegisterPage());
+      default:
+        
+    }
+    switch (settings.name) {
+      case Routes.mapPageRoute:
+        return MaterialPageRoute(builder: (_) => const MapPage());
       default:
         return unDefinedRoute();
     }

@@ -4,8 +4,17 @@ import 'package:task2_register_page/constant.dart';
 import 'package:task2_register_page/custom_paint.dart';
 import 'package:task2_register_page/main_button.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +62,9 @@ class RegisterPage extends StatelessWidget {
                         ),
                       ),
                       child: TextFormField(
+                        controller: _nameController,
+                        validator: (val) =>
+                            val!.isEmpty ? 'please enter your name' : null,
                         style: const TextStyle(
                           color: kPrimaryColor,
                         ),
@@ -196,18 +208,20 @@ class RegisterPage extends StatelessWidget {
                     const SizedBox(
                       height: 40,
                     ),
-                    const MainButton(
+                    MainButton(
                       backgroundColor: kPrimaryColor,
                       textColor: Colors.white,
                       text: 'Register',
+                      onPressed: () {},
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    const MainButton(
+                    MainButton(
                       backgroundColor: Colors.white,
                       textColor: kPrimaryColor,
                       text: 'Login',
+                      onPressed: () {},
                     ),
                   ],
                 ),

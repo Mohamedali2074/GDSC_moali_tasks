@@ -2,17 +2,20 @@
 import 'package:flutter/material.dart';
 
 import 'package:task2_register_page/constant.dart';
+import 'package:task2_register_page/routes_manger.dart';
 
 class MainButton extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
   final String text;
+  final Function() onPressed;
 
   const MainButton({
     Key? key,
     required this.backgroundColor,
     required this.textColor,
     required this.text,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -21,7 +24,7 @@ class MainButton extends StatelessWidget {
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
