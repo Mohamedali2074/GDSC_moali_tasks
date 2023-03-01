@@ -13,7 +13,7 @@ class MapPage extends StatelessWidget {
         elevation: 0,
         backgroundColor: kPrimaryColor,
         systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: kPrimaryColor,
+          statusBarColor: Colors.grey,
         ),
         title: const Text('Flutter Map'),
         centerTitle: true,

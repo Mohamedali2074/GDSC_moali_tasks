@@ -1,18 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:task2_register_page/constant.dart';
 
 class MyTextFormField extends StatelessWidget {
   @override
-  MyTextFormField({
+  const MyTextFormField({
     Key? key,
     required this.controller,
     required this.validator,
     required this.labelText,
     required this.prefixIcon,
-    this.suffixIcon,
-    required this.obscureText,
     required this.keyboardType,
+    this.suffixIcon,
+    this.obscureText,
   }) : super(key: key);
   final TextEditingController controller;
   final FormFieldValidator validator;
@@ -20,14 +21,12 @@ class MyTextFormField extends StatelessWidget {
   final IconData prefixIcon;
   final TextInputType keyboardType;
   final Widget? suffixIcon;
-  bool obscureText = false;
-
- 
+  final bool? obscureText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: obscureText,
+      obscureText: obscureText!,
       controller: controller,
       validator: validator,
       style: const TextStyle(
@@ -79,7 +78,3 @@ class MyTextFormField extends StatelessWidget {
     );
   }
 }
-
-
-
-
